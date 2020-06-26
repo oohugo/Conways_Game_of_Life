@@ -1,5 +1,7 @@
 
 #include "Grid.hpp"
+#include <stdlib.h>
+#include <ctime>
 
 Grid::Grid(int t){
     bool *aux = new bool[t * t];
@@ -10,13 +12,15 @@ Grid::Grid(int t){
 
 
 void Grid::visualizacao() const{
+    auto life = "#";
+    auto dead = " ";
     for(int row = 0; row < tamanho; row++){
         for(int col = 0; col < tamanho; col++)
             if(grid[getSingleIndex(row, col)])
-                printw("#");
+                printw(life);
             else
-                printw(" ");
-        move(row, 0);
+                printw(dead);
+        move(row+1, 0);
     }
 }
 
@@ -30,7 +34,14 @@ Grid::~Grid(){
 }
 
 void Grid::init_grid(){
+    bool aleatorio;
+
+    auto seed = time(nullptr);
+    srand(seed);
+    
     for(int row = 0; row < tamanho; row++)
-        for(int col = 0; col < tamanho; col++)
-            grid[getSingleIndex(row, col)] = true;
+        for(int col = 0; col < tamanho; col++){
+            aleatorio = rand() % 2;
+            grid[getSingleIndex(row, col)] = aleatorio;
+        }
 }
