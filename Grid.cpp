@@ -3,10 +3,11 @@
 #include <stdlib.h>
 #include <ctime>
 
-Grid::Grid(int t){
-    bool *aux = new bool[t * t];
+Grid::Grid(int row, int col){
+    bool *aux = new bool[row * col];
     grid = aux;
-    tamanho = t;
+    row_max = row;
+    col_max = col;
     init_grid();
 } 
 
@@ -14,19 +15,20 @@ Grid::Grid(int t){
 void Grid::visualizacao() const{
     auto life = "#";
     auto dead = " ";
-    for(int row = 0; row < tamanho; row++){
-        for(int col = 0; col < tamanho; col++)
+    for(int row = 0; row < row_max; row++){
+        for(int col = 0; col < col_max; col++)
             if(grid[getSingleIndex(row, col)])
                 printw(life);
             else
                 printw(dead);
         move(row+1, 0);
     }
+   
 }
 
 int Grid::getSingleIndex(int row, int col) const
 {
-     return (row * tamanho) + col;
+     return (row * col_max) + col;
 }
 
 Grid::~Grid(){
@@ -39,9 +41,73 @@ void Grid::init_grid(){
     auto seed = time(nullptr);
     srand(seed);
     
-    for(int row = 0; row < tamanho; row++)
-        for(int col = 0; col < tamanho; col++){
+    for(int row = 0; row < row_max; row++)
+        for(int col = 0; col < col_max; col++){
             aleatorio = rand() % 2;
             grid[getSingleIndex(row, col)] = aleatorio;
         }
 }
+
+void Grid::atualiza_grid(){
+    short *nova_grid = new short[row_max * col_max];
+    for(int row = 0; row < row_max; row++)
+        for(int col = 0; col < col_max; col++)
+            nova_grid[getSingleIndex(row,col)] = conta_vizinhos(row,col);
+
+    for(int row = 0; row < row_max; row++)
+        for(int col = 0; col < col_max; col++)
+           
+            if( grid[getSingleIndex(row,col)]){
+                
+                if(nova_grid[getSingleIndex(row,col)] < 2)
+                    grid[getSingleIndex(row,col)] = false;
+                
+                else if(nova_grid[getSingleIndex(row,col)] > 3 )
+                    grid[getSingleIndex(row,col)] = false;
+           
+            }else if(nova_grid[getSingleIndex(row,col)] == 3 )
+                    grid[getSingleIndex(row,col)] = true;
+        
+    delete[] nova_grid;
+}
+
+short Grid::conta_vizinhos(int row, int col) const{
+    short sum = 0;
+
+    if(row != 0){
+        if(col != 0)
+            if(grid[getSingleIndex(row-1, col-1)])
+                sum++;
+
+        if(grid[getSingleIndex(row-1, col)])
+            sum++;
+        
+        if(col != col_max-1)
+            if(grid[getSingleIndex(row-1, col+1)])
+                sum++;
+    }
+
+
+    if(col != 0)
+        if(grid[getSingleIndex(row, col-1)])
+            sum++;
+
+    if(col != col_max-1)
+        if(grid[getSingleIndex(row, col+1)])
+            sum++;
+
+    if(row != row_max){
+        if(col != 0)
+            if(grid[getSingleIndex(row+1, col-1)])
+                sum++;
+    
+        if(grid[getSingleIndex(row+1, col)])
+            sum++;
+    
+        if(col != col_max-1)
+            if(grid[getSingleIndex(row+1, col+1)])
+                sum++;
+    }
+    return sum;
+}
+
