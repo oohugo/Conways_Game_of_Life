@@ -7,7 +7,8 @@
 class Graphic: public Grid{
 public:
     Graphic();
-    void visualizacao() const;
+    void visualizacao(Grid const) const;
+    Point const get_max() const;
     ~Graphic();
 private:
     const int MAX_HEIGHT = 800;

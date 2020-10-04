@@ -11,21 +11,6 @@ Grid::Grid(int row, int col){
     init_grid();
 } 
 
-
-void Grid::visualizacao() const{
-    auto life = "#";
-    auto dead = " ";
-    for(int row = 0; row < row_max; row++){
-        for(int col = 0; col < col_max; col++)
-            if(grid[getSingleIndex(row, col)])
-                printw(life);
-            else
-                printw(dead);
-        move(row+1, 0);
-    }
-   
-}
-
 int Grid::getSingleIndex(int row, int col) const
 {
      return (row * col_max) + col;
@@ -111,3 +96,6 @@ short Grid::conta_vizinhos(int row, int col) const{
     return sum;
 }
 
+const bool Grid::get_element(int row, int col) const{
+    return grid[getSingleIndex(row, col)];
+}

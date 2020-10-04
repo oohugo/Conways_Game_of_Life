@@ -2,16 +2,19 @@
 #ifndef GRID_HPP
 #define GRID_HPP
 
-#include <ncurses.h>
-
+struct Point
+{
+    int x;
+    int y;
+};
 class Grid{
 public:
     Grid(int, int);
-    void visualizacao() const;
     ~Grid();
-    int getSingleIndex(int row, int col) const;
+    const bool get_element(int row, int col) const;
     void atualiza_grid();
-protected:
+private:
+    int getSingleIndex(int row, int col) const;
     bool * grid; 
     short conta_vizinhos(int row, int col) const;
     int row_max;
