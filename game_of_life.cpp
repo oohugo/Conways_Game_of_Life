@@ -1,6 +1,7 @@
 
 #include <ncurses.h>
 #include "Grid.hpp"
+#include "graphic.hpp"
 #include <chrono>
 #include <iostream>
 
@@ -16,35 +17,48 @@ void framerate(){
 }
 
 int main(){
+    char choice;
+    std::cout << "Digite 'n' para ncurses e 's' para SDL visual: " << "\n";
+    std::cin >> choice;
+    if(choice == 'n'){
+        initscr();			/* Start curses mode 		  */
+        noecho();
+        cbreak();
 
-    
+        int row=10,col=10;				
+        getmaxyx(stdscr,row,col);		
 
-    initscr();			/* Start curses mode 		  */
-    noecho();
-    cbreak();
+        Grid game = Grid(row, col);
+        game.visualizacao();
 
-    int row=10,col=10;				
-    getmaxyx(stdscr,row,col);		
+	    refresh();			/* Print it on to the real screen */
+        int count = 0;
 
-    Grid grid = Grid(row, col);
-
-
-    grid.visualizacao();
-
-	refresh();			/* Print it on to the real screen */
-    int count = 0;
-
-    framerate();
-    while(count < 500){
-        clear();
-        move(0,0);
-        grid.atualiza_grid();
-        grid.visualizacao();
-        refresh();
-        count++;
         framerate();
+        while(count < 500){
+            clear();
+            move(0,0);
+            game.atualiza_grid();
+            game.visualizacao();
+            refresh();
+            count++;
+            framerate();
+        }
+	    endwin();			/* End curses mode		  */
+        std::cout << count << "\n";
+    }else{
+
+        int count = 0;
+        while (count < 500)
+        {
+        Graphic game = Graphic();
+        game.atualiza_grid();
+        game.visualizacao();
+        count++;
+        SDL_Delay(1000);
+        }
+    
     }
-	endwin();			/* End curses mode		  */
-    std::cout << count << "\n";
+    
 }
 

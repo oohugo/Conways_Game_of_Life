@@ -11,13 +11,14 @@ public:
     ~Grid();
     int getSingleIndex(int row, int col) const;
     void atualiza_grid();
-private:
+protected:
     bool * grid; 
+    short conta_vizinhos(int row, int col) const;
     int row_max;
     int col_max;
     void init_grid();
-    short conta_vizinhos(int row, int col) const;
     void logica_game() const;
+//private:
 
 };
 
