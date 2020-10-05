@@ -22,6 +22,8 @@ void Text::init(){
     initscr();			/* Start curses mode 		  */
     noecho();
     cbreak();
+    keypad(stdscr, TRUE);		/* I need that nifty F1 	*/
+    nodelay(stdscr, TRUE);
 }
 
 void Text::visualizacao(Grid const grid) const{
@@ -38,17 +40,19 @@ void Text::visualizacao(Grid const grid) const{
         move(row+1, 0);
     }
     refresh();			/* Print it on to the real screen */
-    framerate(600);
-}
-
-int Text::get_max_x() const{
-    return max_row;
-}
-
-int Text::get_max_y() const{
-    return max_col;
 }
 
 Text::~Text(){
     endwin();			/* End curses mode		  */
+}
+
+void Text::main_loop(){
+        Grid grid = Grid(max_row, max_col);
+        visualizacao(grid);
+        int ch;
+        while((ch = getch()) != KEY_F(1)){
+            grid.atualiza_grid();
+            visualizacao(grid);
+            framerate(600);
+        }
 }

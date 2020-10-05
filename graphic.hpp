@@ -7,12 +7,10 @@
 class Graphic{
 public:
     Graphic();
-    void visualizacao(Grid&);
-
-    int get_max_x() const;
-    int get_max_y() const;
+    void main_loop();
     ~Graphic();
 private:
+    void visualizacao(Grid&);
     const int MAX_HEIGHT = 600;
     const int MAX_WIDTH = 800;
     SDL_Renderer* renderer;

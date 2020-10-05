@@ -41,11 +41,24 @@ Graphic::~Graphic(){
 	SDL_Quit();
 }
 
-
-int Graphic::get_max_x() const{
-    return MAX_WIDTH;
-}
-
-int Graphic::get_max_y() const{
-    return MAX_HEIGHT;
+void Graphic::main_loop(){
+	Grid grid = Grid(MAX_WIDTH,MAX_HEIGHT);
+	visualizacao(grid);
+	bool close = false;
+	while (!close) { 
+		SDL_Event event;  
+		while (SDL_PollEvent(&event)) { 
+			switch (event.type) { 
+			case SDL_QUIT: 
+				close = true; 
+				break; 
+			case SDL_KEYDOWN: 
+				if(event.key.keysym.scancode == SDL_SCANCODE_Q) 
+					close = true;
+				break;
+			}
+		}
+		grid.atualiza_grid();
+		visualizacao(grid);
+	}
 }

@@ -8,13 +8,11 @@ class Text{
 public:
     Text();
     ~Text();
-    void init();
-    void framerate(int) const;
-    void visualizacao(Grid const) const;
-    int get_max_x() const;
-    int get_max_y() const;
-
+    void main_loop();
 private:
+    void init();
+    void visualizacao(Grid const) const;
+    void framerate(int) const;
     int max_col = 10;
     int max_row = 10;
 };
