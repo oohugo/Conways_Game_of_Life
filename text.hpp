@@ -2,6 +2,7 @@
 #define TEXT_HPP
 
 #include <ncurses.h>
+#include "Grid.hpp"
 
 class Text{
 public:
@@ -10,7 +11,9 @@ public:
     void init();
     void framerate(int) const;
     void visualizacao(Grid const) const;
-    Point const get_max() const;
+    int get_max_x() const;
+    int get_max_y() const;
+
 private:
     int max_col = 10;
     int max_row = 10;

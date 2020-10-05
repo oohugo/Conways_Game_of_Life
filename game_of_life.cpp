@@ -11,19 +11,22 @@ int main(){
     int count = 0;
     if(choice == 'n'){
         Text graphic = Text();
-        Grid grid = Grid(graphic.get_max().x,graphic.get_max().y);
+        auto x = graphic.get_max_x();
+        auto y = graphic.get_max_y();
+        Grid grid = Grid(x,y);
         graphic.visualizacao(grid);
         while(count < 500){
             grid.atualiza_grid();
             graphic.visualizacao(grid);
             count++;
         }
-    }
-    else{
+    }else{
         Graphic graphic = Graphic();
-        Grid grid = Grid(graphic.get_max().x,graphic.get_max().y);
+        auto x = graphic.get_max_x();
+        auto y = graphic.get_max_y();
+        Grid grid = Grid(x,y);
         graphic.visualizacao(grid);
-        while(count < 500){
+        while(count < 250){
             grid.atualiza_grid();
             graphic.visualizacao(grid);
             count++;

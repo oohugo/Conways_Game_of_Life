@@ -4,15 +4,17 @@
 #include <SDL2/SDL.h> 
 #include "Grid.hpp"
 
-class Graphic: public Grid{
+class Graphic{
 public:
     Graphic();
-    void visualizacao(Grid const) const;
-    Point const get_max() const;
+    void visualizacao(Grid&);
+
+    int get_max_x() const;
+    int get_max_y() const;
     ~Graphic();
 private:
-    const int MAX_HEIGHT = 800;
-    const int MAX_WIDTH = 600;
+    const int MAX_HEIGHT = 600;
+    const int MAX_WIDTH = 800;
     SDL_Renderer* renderer;
     SDL_Window* window;
     void init_sdl();

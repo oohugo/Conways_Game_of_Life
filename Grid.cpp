@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <ctime>
 
-Grid::Grid(int row, int col){
-    bool *aux = new bool[row * col];
-    grid = aux;
+Grid::Grid(int const row, int const col){
+    grid.resize(row * col, false);
+  //  grid = aux;
     row_max = row;
     col_max = col;
     init_grid();
@@ -14,10 +14,6 @@ Grid::Grid(int row, int col){
 int Grid::getSingleIndex(int row, int col) const
 {
      return (row * col_max) + col;
-}
-
-Grid::~Grid(){
-    delete [] grid;
 }
 
 void Grid::init_grid(){
@@ -96,6 +92,6 @@ short Grid::conta_vizinhos(int row, int col) const{
     return sum;
 }
 
-const bool Grid::get_element(int row, int col) const{
+bool Grid::get_element(int &row, int &col) const{
     return grid[getSingleIndex(row, col)];
 }

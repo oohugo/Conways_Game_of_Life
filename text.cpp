@@ -1,6 +1,5 @@
 #include "text.hpp"
 #include <chrono>
-#include "Grid.hpp"
 
 
 void Text::framerate(int time) const{
@@ -42,8 +41,12 @@ void Text::visualizacao(Grid const grid) const{
     framerate(600);
 }
 
-Point const Text::get_max() const{
-    return {max_row, max_col};
+int Text::get_max_x() const{
+    return max_row;
+}
+
+int Text::get_max_y() const{
+    return max_col;
 }
 
 Text::~Text(){
