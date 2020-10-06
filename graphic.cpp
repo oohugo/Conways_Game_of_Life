@@ -1,5 +1,6 @@
 #include "graphic.hpp"
 
+
 void Graphic::init_sdl(){
     window = NULL;
 	renderer = NULL;
@@ -26,11 +27,11 @@ void Graphic::visualizacao(Grid& grid){
 	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF );
 	SDL_RenderClear(renderer);
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF );
-    for(int row = 0; row < MAX_WIDTH; row++)
+    for(int row = 0; row < MAX_WIDTH; row++){
     	for(int col = 0; col < MAX_HEIGHT; col++)
         	if(grid.get_element(row, col))
             	SDL_RenderDrawPoint(renderer, row, col);
-	
+	}
 	SDL_RenderPresent(renderer);
 	SDL_Delay(200);
 }

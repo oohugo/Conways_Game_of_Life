@@ -1,7 +1,7 @@
 #ifndef GRAPHIC_HPP
 #define GRAPHIC_HPP
 
-#include <SDL2/SDL.h> 
+#include "SDL2/SDL.h" 
 #include "Grid.hpp"
 
 class Graphic{
