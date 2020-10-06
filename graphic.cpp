@@ -1,20 +1,21 @@
 #include "graphic.hpp"
-
+#include <stdexcept>
+#include <string>
 
 void Graphic::init_sdl(){
     window = NULL;
 	renderer = NULL;
 
     if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
-		printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
+		throw std::runtime_error(SDL_GetError() );
 	else{
 	    window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAX_WIDTH, MAX_HEIGHT, SDL_WINDOW_SHOWN );
 		if( window == NULL )
-			printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
+		    throw std::runtime_error(SDL_GetError() );
 		else{
 			renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED );
 			if( renderer == NULL )
-				printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
+		    	throw std::runtime_error(SDL_GetError() );
 		}
 	}
 }

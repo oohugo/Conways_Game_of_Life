@@ -39,11 +39,11 @@ void Text::visualizacao(Grid const grid) const{
                 printw(dead);
         move(row+1, 0);
     }
-    refresh();			/* Print it on to the real screen */
+    refresh();
 }
 
 Text::~Text(){
-    endwin();			/* End curses mode		  */
+    endwin();
 }
 
 void Text::main_loop(){
@@ -53,6 +53,6 @@ void Text::main_loop(){
         while((ch = getch()) != KEY_F(1)){
             grid.atualiza_grid();
             visualizacao(grid);
-            framerate(600);
+            framerate(500);
         }
 }

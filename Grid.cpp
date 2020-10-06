@@ -1,11 +1,9 @@
-
 #include "Grid.hpp"
 #include <stdlib.h>
 #include <ctime>
 
 Grid::Grid(int const row, int const col){
     grid.resize(row * col, false);
-  //  grid = aux;
     row_max = row;
     col_max = col;
     init_grid();

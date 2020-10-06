@@ -1,5 +1,4 @@
 
-#include <ncurses.h>
 #include "graphic.hpp"
 #include "text.hpp"
 #include <iostream>
