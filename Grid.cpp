@@ -6,7 +6,7 @@ Grid::Grid(int const row, int const col){
     grid.resize(row * col, false);
     row_max = row;
     col_max = col;
-    init_grid();
+    reset_grid();
 } 
 
 int Grid::getSingleIndex(int const row, int const col) const
@@ -14,16 +14,16 @@ int Grid::getSingleIndex(int const row, int const col) const
     return (row * col_max) + col;
 }
 
-void Grid::init_grid(){
-    bool aleatorio;
+void Grid::reset_grid(){
+    bool random;
 
     auto seed = time(nullptr);
     srand(seed);
     
     for(int row = 0; row < row_max; row++)
         for(int col = 0; col < col_max; col++){
-            aleatorio = rand() % 2;
-            grid[getSingleIndex(row, col)] = aleatorio;
+            random = rand() % 2;
+            grid[getSingleIndex(row, col)] = random;
         }
 }
 

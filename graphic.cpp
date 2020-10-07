@@ -63,6 +63,8 @@ void Graphic::main_loop(){
 			case SDL_KEYDOWN: 
 				if(event.key.keysym.scancode == SDL_SCANCODE_Q) 
 					close = true;
+				else if(event.key.keysym.scancode == SDL_SCANCODE_R)
+					grid.reset_grid();
 				break;
 			}
 		}
