@@ -54,5 +54,9 @@ void Text::main_loop(){
             grid.atualiza_grid();
             visualizacao(grid);
             framerate(500);
+            if(ch == (int)'r')
+                grid.reset_grid();
+            if(ch == (int)'q')
+                break;
         }
 }

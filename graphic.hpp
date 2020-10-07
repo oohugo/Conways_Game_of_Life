@@ -6,7 +6,7 @@
 
 class Graphic{
 public:
-    Graphic();
+    Graphic(int);
     void main_loop();
     ~Graphic();
 private:
@@ -16,6 +16,7 @@ private:
     SDL_Renderer* renderer;
     SDL_Window* window;
     void init_sdl();
+    int length;
 };
 
 #endif
