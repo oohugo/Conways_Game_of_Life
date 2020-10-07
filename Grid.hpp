@@ -17,7 +17,6 @@ private:
     int col_max;
     void init_grid();
     void logica_game() const;
-
 };
 
 #endif

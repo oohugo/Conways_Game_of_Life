@@ -6,10 +6,9 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -g")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -g")
+# set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -g")
 
-#set(SOURCE_FILES game_of_life.cpp Grid.cpp graphic.cpp text.cpp)
 set(SOURCE_FILES game_of_life.cpp)
 
 find_package(SDL2 REQUIRED)
@@ -24,5 +23,4 @@ target_include_directories(libs PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(app ${SOURCE_FILES})
 
-#target_link_libraries(libs PUBLIC libs)
 target_link_libraries(app PRIVATE libs SDL2 ${CURSES_LIBRARY})

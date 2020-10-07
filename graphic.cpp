@@ -20,7 +20,11 @@ void Graphic::init_sdl(){
 	}
 }
 
-Graphic::Graphic(){
+Graphic::Graphic(int l){
+	if(l > 0 && l <= MAX_HEIGHT /2 && l <= MAX_WIDTH /2)
+		length = l;
+	else
+		length = 1;
     init_sdl();
 }
 
@@ -28,10 +32,12 @@ void Graphic::visualizacao(Grid& grid){
 	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF );
 	SDL_RenderClear(renderer);
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF );
-    for(int row = 0; row < MAX_WIDTH; row++){
-    	for(int col = 0; col < MAX_HEIGHT; col++)
+    for(int row = 0; row < MAX_WIDTH / length; row++){
+    	for(int col = 0; col < MAX_HEIGHT / length; col++)
         	if(grid.get_element(row, col))
-            	SDL_RenderDrawPoint(renderer, row, col);
+				for(int i = 0; i < length; i++)
+					for(int j = 0; j < length; j++)
+            			SDL_RenderDrawPoint(renderer, row*length + i, col*length + j);
 	}
 	SDL_RenderPresent(renderer);
 	SDL_Delay(200);
@@ -44,7 +50,7 @@ Graphic::~Graphic(){
 }
 
 void Graphic::main_loop(){
-	Grid grid = Grid(MAX_WIDTH,MAX_HEIGHT);
+	Grid grid = Grid(MAX_WIDTH / length, MAX_HEIGHT / length);
 	visualizacao(grid);
 	bool close = false;
 	while (!close) { 

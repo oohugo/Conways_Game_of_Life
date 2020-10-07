@@ -9,9 +9,9 @@ Grid::Grid(int const row, int const col){
     init_grid();
 } 
 
-int Grid::getSingleIndex(int row, int col) const
+int Grid::getSingleIndex(int const row, int const col) const
 {
-     return (row * col_max) + col;
+    return (row * col_max) + col;
 }
 
 void Grid::init_grid(){

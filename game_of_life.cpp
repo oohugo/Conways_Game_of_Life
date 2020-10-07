@@ -12,7 +12,10 @@ int main(){
         graphic.main_loop();
         
     }else{
-        Graphic graphic = Graphic();
+        std::cout << "Digite o tamanho da celula em pixels: " << "\n";
+        int input;
+        std::cin >> input;
+        Graphic graphic = Graphic(input);
         graphic.main_loop();
     }
 }
