@@ -1,23 +1,26 @@
 #include "graphic.hpp"
 #include <stdexcept>
 #include <string>
-
+#include <iostream>
 void Graphic::init_sdl(){
     window = NULL;
-	renderer = NULL;
+    renderer = NULL;
 
     if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
-		throw std::runtime_error(SDL_GetError() );
-	else{
-	    window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAX_WIDTH, MAX_HEIGHT, SDL_WINDOW_SHOWN );
-		if( window == NULL )
-		    throw std::runtime_error(SDL_GetError() );
-		else{
-			renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED );
-			if( renderer == NULL )
-		    	throw std::runtime_error(SDL_GetError() );
-		}
-	}
+	throw std::runtime_error(SDL_GetError() );
+    window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAX_WIDTH, MAX_HEIGHT, SDL_WINDOW_SHOWN );
+    if( window == NULL ){
+      auto error = SDL_GetError();
+      SDL_Quit();
+      throw std::runtime_error(error);
+    }
+    renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED );
+    if( renderer == NULL ){
+        auto error = SDL_GetError();
+	SDL_DestroyWindow(window);
+	SDL_Quit();
+	throw std::runtime_error(error);
+    }
 }
 
 Graphic::Graphic(int l){
@@ -25,7 +28,12 @@ Graphic::Graphic(int l){
 		length = l;
 	else
 		length = 1;
-    init_sdl();
+	try{
+           init_sdl();
+	}
+        catch(const std::runtime_error& e){
+	    std::cerr << "SDL error: " << e.what() << "\n";
+	}
 }
 
 void Graphic::visualizacao(Grid& grid){
